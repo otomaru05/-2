@@ -16,5 +16,8 @@ public:
 private:
 	Player player_;
 	Camera camera_;
+
+	int bgHandle_; //îwåi
+	int ground_; //ínñ 
 };
 

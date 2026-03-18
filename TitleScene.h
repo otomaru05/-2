@@ -15,5 +15,8 @@ public:
 
 private:
 	bool start_;
+	int title_;
+	int sub_;
+
 };
 

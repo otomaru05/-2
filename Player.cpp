@@ -1,11 +1,14 @@
 #include "Player.h"
 
-Player::Player():x_(100), y_(440), speed_(5), setViewX_(0), jump_(0), gravity_(1), groundY_(440), ground_(true)
+Player::Player():x_(100), y_(440), speed_(5), setViewX_(0), jump_(0), gravity_(1), groundY_(500), ground_(true)
 {
+	graphHandle_ = LoadGraph("image\\player.png"); //âÊëú
+	isRight_ = true; //èâä˙å¸Ç´
 }
 
 Player::~Player()
 {
+	DeleteGraph(graphHandle_);
 }
 
 void Player::Update()
@@ -14,16 +17,18 @@ void Player::Update()
 	if (CheckHitKey(KEY_INPUT_RIGHT)) 
 	{
 		x_ += speed_;
+		isRight_ = true;
 	}
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{
 		x_ -= speed_;
+		isRight_ = false;
 	}
 
 	//ÉWÉÉÉìÉv
 	if (CheckHitKey(KEY_INPUT_SPACE) && ground_)
 	{
-		jump_ = -30;
+		jump_ = -20;
 		ground_ = false;
 	}
 
@@ -42,5 +47,16 @@ void Player::Update()
 
 void Player::Draw()
 {
-	DrawBox(x_ - setViewX_, y_, x_ - setViewX_ + 32, y_ + 32, GetColor(255, 255, 255), TRUE);
+	float scaleX = isRight_ ? 1.0f : -1.0f; //ç∂Ç»ÇÁîΩì]
+
+	//DrawBox(x_ - setViewX_, y_, x_ - setViewX_ + 32, y_ + 32, GetColor(255, 255, 255), TRUE);
+	if (isRight_)
+	{
+		DrawExtendGraph(x_ - setViewX_, y_, x_ - setViewX_ + 52, y_ + 52, graphHandle_, TRUE); //âE
+	}
+	else
+	{
+		DrawExtendGraph(x_ - setViewX_ + 52, y_, x_ - setViewX_, y_ + 52, graphHandle_, TRUE); //ç∂
+	}
+	
 }

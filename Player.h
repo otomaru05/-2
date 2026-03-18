@@ -24,6 +24,9 @@ private:
 	int gravity_; //d—Í
 	int groundY_; //’n–Ê
 	bool ground_; //Ú’n”»’è
+	
+	int graphHandle_; //‰æ‘œ
+	bool isRight_; //Œü‚«
 
 };
 

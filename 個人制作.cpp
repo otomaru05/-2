@@ -7,8 +7,8 @@
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    const int SCREEN_W = 1000;
-    const int SCREEN_H = 600;
+    const int SCREEN_W = 970;
+    const int SCREEN_H = 640;
 
     ChangeWindowMode(TRUE); //ウィンドウモード
     SetGraphMode(SCREEN_W, SCREEN_H, 32);
