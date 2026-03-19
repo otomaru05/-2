@@ -4,6 +4,9 @@ Player::Player():x_(100), y_(440), speed_(5), setViewX_(0), jump_(0), gravity_(1
 {
 	graphHandle_ = LoadGraph("image\\player.png"); //画像
 	isRight_ = true; //初期向き
+	isHit_ = false;
+	hitVx_ = 0;
+	hitVy_ = 0;
 }
 
 Player::~Player()
@@ -28,12 +31,19 @@ void Player::Update()
 	//ジャンプ
 	if (CheckHitKey(KEY_INPUT_SPACE) && ground_)
 	{
-		jump_ = -20;
+		jump_ = -25;
 		ground_ = false;
 	}
 
 	//重力
-	jump_ += gravity_;
+	if (jump_ < 0)
+	{
+		jump_ += 1;
+	}
+	else
+	{
+		jump_ += 1;
+	}
 	y_ += jump_;
 
 	//地面衝突
@@ -42,6 +52,12 @@ void Player::Update()
 		y_ = groundY_;
 		jump_ = 0;
 		ground_ = true;
+	}
+
+	//左画面外制限
+	if (x_ < 0)
+	{
+		x_ = 0;
 	}
 }
 

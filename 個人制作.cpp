@@ -39,6 +39,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
                 current = new PlayScene(SCREEN_W);
             }
         }
+
+        //プレイー＞タイトル
+        if (auto* play = dynamic_cast<PlayScene*>(current))
+        {
+            if (play->IsFlag()) 
+            {
+                delete current;
+                current = new TitleScene();
+            }
+        }
         ScreenFlip();
     }
     delete current;

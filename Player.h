@@ -14,6 +14,11 @@ public:
 	int GetY() const { return y_; }
 	void SetViewX(int vx) { setViewX_ = vx; }
 
+	int GetWidth() const { return 52; } //“–‚½‚è”»’è—p
+	int GetHeight() const { return 52; }
+
+	int GetJump() const { return jump_; } //ƒWƒƒƒ“ƒv
+
 private:
 	int x_;
 	int y_;
@@ -27,6 +32,10 @@ private:
 	
 	int graphHandle_; //‰æ‘œ
 	bool isRight_; //Œü‚«
+
+	bool isHit_;
+	int hitVx_; //‰¡‚Ì‚Á”ò‚Ñ
+	int hitVy_; //c‚Ì‚Á”ò‚Ñ
 
 };
 
