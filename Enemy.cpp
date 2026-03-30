@@ -1,34 +1,22 @@
 #include "Enemy.h"
+#include "PlayScene.h"
 
-Enemy::Enemy() : x_(1200), y_(440), speed_(3), viewX_(0)
+Enemy::Enemy() : x_(1200), y_(440), speed_(1), viewX_(0)
 {
 	x_ = 1200 + rand() % 600;
 	timer_ = rand() % 120; 
 	//speed_ = 2 + rand() % 3;
 
-	dup_ = 0;
-	
-	if (dup_ == 0)
-	{
-		y_ = 450;
-	}
-	else
-	{
-		y_ = 485;
-	}
-
 	isActive_ = true;
 	timer_ = 0;
 
 	grizzlyEnemy_= LoadGraph("image\\bea.png");
-	dogEnemy_ = LoadGraph("image\\bog.png");
 
 }
 
 Enemy::~Enemy()
 {
 	DeleteGraph(grizzlyEnemy_);
-	DeleteGraph(dogEnemy_);
 }
 
 void Enemy::Update()
@@ -51,17 +39,9 @@ void Enemy::Update()
 		{
 			isActive_ = true;
 			x_ = 1200 + rand() % 300;
-			speed_ = 2 + rand() % 3; //速さ
-			dup_ = rand()% 2; //ランダムに
+			speed_ = 1 + rand() % 2; //速さ
+			
 
-			if (dup_ == 0)
-			{
-				y_ = 450;
-			}
-			else
-			{
-				y_ = 485;
-			}
 		}
 	}
 	
@@ -73,49 +53,20 @@ void Enemy::Draw()
 {
 	if (!isActive_) return;
 
-	if (dup_ == 0)
-	{
-		int size = 105;
-		int drawY = 450;
+	int size = 105;
+	int drawY = 450;
 
-		DrawExtendGraph(x_ - viewX_, drawY, x_ - viewX_ + size, drawY + size, grizzlyEnemy_, TRUE);
-	}
-	else
-	{
-		int size = 70;
-		int drawY = 485;
-
-		DrawExtendGraph(x_ - viewX_, drawY, x_ - viewX_ + size, drawY + size, dogEnemy_, TRUE);
-	}
+	DrawExtendGraph(x_ - viewX_, drawY, x_ - viewX_ + size, drawY + size, grizzlyEnemy_, TRUE);
+	
 	
 }
 
 int Enemy::GetWidth() const
 {
-	if (dup_ == 0)
-	{
-		return 105; //クマ
-	}
-	else
-	{
-		return 70; //犬
-	}
+	return 105;
 }
 
 int Enemy::GetHeight() const
 {
-	if (dup_ == 0)
-	{
-		return 105; //クマ
-	}
-	else
-	{
-		return 70; //犬
-	}
+	return 105;
 }
-//当たり判定の追加(プレイヤーも)
-// プレイヤーの攻撃方法
-// 敵に当たったらゲームオーバー
-// 敵を６体やっつけたらクリア
-// エフェクト追加
-//ゲームオーバー画面とクリア画面の追加

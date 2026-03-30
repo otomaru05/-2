@@ -1,12 +1,17 @@
 #include "Player.h"
 
-Player::Player():x_(100), y_(440), speed_(5), setViewX_(0), jump_(0), gravity_(1), groundY_(500), ground_(true)
+Player::Player():x_(100), y_(440), speed_(4), setViewX_(0), groundY_(500), ground_(true)
 {
 	graphHandle_ = LoadGraph("image\\player.png"); //画像
 	isRight_ = true; //初期向き
 	isHit_ = false;
 	hitVx_ = 0;
 	hitVy_ = 0;
+
+	speed_ = 5;
+
+	vy_ = 0.0f;
+	gravity_ = 1.0f;
 }
 
 Player::~Player()
@@ -31,26 +36,27 @@ void Player::Update()
 	//ジャンプ
 	if (CheckHitKey(KEY_INPUT_SPACE) && ground_)
 	{
-		jump_ = -25;
+		vy_ = -9.0f; //初速度
 		ground_ = false;
 	}
 
 	//重力
-	if (jump_ < 0)
+	if (vy_ < 0)
 	{
-		jump_ += 1;
+		vy_ += gravity_ * 0.2f; 
 	}
 	else
 	{
-		jump_ += 1;
+		vy_ += gravity_ * 0.3f;
 	}
-	y_ += jump_;
+	y_ += vy_;
+	
 
 	//地面衝突
 	if (y_ >= groundY_)
 	{
 		y_ = groundY_;
-		jump_ = 0;
+		vy_ = 0;
 		ground_ = true;
 	}
 

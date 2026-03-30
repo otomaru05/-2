@@ -17,7 +17,7 @@ public:
 	int GetWidth() const { return 52; } //当たり判定用
 	int GetHeight() const { return 52; }
 
-	int GetJump() const { return jump_; } //ジャンプ
+	int GetVy_() const { return vy_; } //ジャンプ
 
 private:
 	int x_;
@@ -25,8 +25,9 @@ private:
 	int setViewX_;
 	int speed_;
 
-	int jump_; //縦速度
-	int gravity_; //重力
+	int jump_; 
+	float vy_;//縦速度
+	float gravity_; //重力加速度
 	int groundY_; //地面
 	bool ground_; //接地判定
 	

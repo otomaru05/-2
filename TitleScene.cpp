@@ -1,4 +1,5 @@
 #include "TitleScene.h"
+#include "Input 1.h"
 
 
 TitleScene::TitleScene() : start_(false)
@@ -15,7 +16,7 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_RETURN))
+	if (Input::IsKeyDown(KEY_INPUT_RETURN))
 	{
 		start_ = true;
 	}

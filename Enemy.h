@@ -17,20 +17,25 @@ public:
 
 	int GetX() const { return x_; } //当たり判定用
 	int GetY() const { return y_; }
+
+	void SetX(int x) { x_ = x; }
+
 	int GetWidth() const;
 	int GetHeight() const;
 	bool IsActive() const { return isActive_; }
 
+	
+
 private:
+	
 	int x_;
 	int y_;
 	int speed_;
 	int viewX_;
 
 	int grizzlyEnemy_; //クマ
-	int dogEnemy_; //犬
-
-	int dup_; //重なり防止
+	
+	
 
 	int timer_; //待ち時間
 	bool isActive_;

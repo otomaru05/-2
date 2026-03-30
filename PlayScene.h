@@ -14,6 +14,10 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	bool IsGameOver() const { return isGameOver_; }
+	bool IsClear() const { return isClear_; }
+
+
 	bool IsLoop() const { return isGameOver_ || isClear_; }
 	bool endFlag_;
 	bool IsFlag() const { return endFlag_; }
@@ -21,7 +25,6 @@ public:
 private:
 	Player player_;
 	Camera camera_;
-	Enemy enemy_;
 	Enemy enemies_[2];
 
 	int bgHandle_; //îwåi

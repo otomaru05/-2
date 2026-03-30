@@ -3,6 +3,9 @@
 #include "Camera.h"
 #include "TitleScene.h"
 #include "PlayScene.h"
+#include "GameOverScene.h"
+#include "GameClear.h"
+#include "Input 1.h"
 
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
@@ -19,39 +22,59 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     }
     SetDrawScreen(DX_SCREEN_BACK);
 
-    GameObject* current = new TitleScene();
-    //PlayScene* play = nullptr;
-
+    GameObject* scene = new TitleScene();
+   
 
     while (ProcessMessage() == 0)
     {
+        Input::KeyStateUpdate();
+
         ClearDrawScreen();
 
-        current->Update();
-        current->Draw();
+        scene->Update();
+        scene->Draw();
 
-        //タイトルー＞プレイ
-        if (auto* title = dynamic_cast<TitleScene*>(current))
+        //タイトル->プレイ
+        if (auto* title = dynamic_cast<TitleScene*>(scene))
         {
             if (title->IsStart())
             {
-                delete current;
-                current = new PlayScene(SCREEN_W);
+                delete scene;
+                scene = new PlayScene(1280);
             }
         }
-
-        //プレイー＞タイトル
-        if (auto* play = dynamic_cast<PlayScene*>(current))
+        else if (auto* play = dynamic_cast<PlayScene*>(scene)) //プレイ->ゲームオーバー
         {
-            if (play->IsFlag()) 
+            if (play->IsGameOver())
             {
-                delete current;
-                current = new TitleScene();
+                delete scene;
+                scene = new GameOverScene();
+            }
+            else if (play->IsClear())
+            {
+                delete scene;
+                scene = new GameClear();
+            }
+        }
+        else if (auto over = dynamic_cast<GameOverScene*>(scene)) //ゲームオーバー->タイトル
+        {
+            if (over->IsRetry())
+            {
+                delete scene;
+                scene = new TitleScene();
+            }
+        }
+        else if (auto clear = dynamic_cast<GameClear*>(scene)) //クリア
+        {
+            if (clear->IsEnd())
+            {
+                delete scene;
+                scene = new GameClear();
             }
         }
         ScreenFlip();
     }
-    delete current;
+    delete scene;
     DxLib_End();
     return 0;
 }

@@ -1,10 +1,13 @@
 #include "PlayScene.h"
+#include "GameOverScene.h"
+#include "Input 1.h"
+
+
 
 bool CheckCollision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2)
 {
 	return (x1 < x2 + w2 && x2 < x1 + w1 && y1 < y2 + h2 && y2 < y1 + h1);
 }
-
 
 
 PlayScene::PlayScene(int screenW) : player_(), camera_(screenW)
@@ -16,6 +19,9 @@ PlayScene::PlayScene(int screenW) : player_(), camera_(screenW)
 	isGameOver_ = false;
 	isClear_ = false;
 	endFlag_ = false;
+
+	enemies_[0].SetX(1200);
+	enemies_[1].SetX(1500);
 }
 
 
@@ -30,14 +36,13 @@ void PlayScene::Update()
 {
 	if (isGameOver_ || isClear_)
 	{
-		if (CheckHitKey(KEY_INPUT_RETURN))
+		if (Input::IsKeyDown(KEY_INPUT_RETURN))
 		{
 			// エンターでタイトルへ戻る
 			isGameOver_ = false;
 			isClear_ = false;
 			isKill_ = 0;
 
-			
 			endFlag_ = true; //終了した
 		}
 		return; //Update止める
@@ -64,7 +69,7 @@ void PlayScene::Update()
 			enemies_[e].GetX(), enemies_[e].GetY(),
 			enemies_[e].GetWidth(), enemies_[e].GetHeight()))
 		{
-			if (player_.GetJump() > 0 && player_.GetY() + player_.GetHeight() < enemies_[e].GetY() + 20)
+			if (player_.GetVy_() > 0 && player_.GetY() + player_.GetHeight() < enemies_[e].GetY() + 30)
 			{
 				enemies_[e] = Enemy();
 				isKill_++;
@@ -126,18 +131,5 @@ void PlayScene::Draw()
 	DrawString(10, 10, "PLAY", GetColor(255, 255, 255));
 	DrawFormatString(10, 40, GetColor(255, 255, 255),"PlayerX=%d Camera=%d",player_.GetX(),viewX);
 
-	DrawFormatString(10, 70, GetColor(255, 255, 0),
-		"敵を2体倒せ！ %d / 2", isKill_);
-
-	if (isGameOver_)
-	{
-		DrawString(400, 200, "GAME OVER", GetColor(255, 0, 0));
-		DrawString(350, 250, "Press ENTER", GetColor(255, 255, 255));
-	}
-
-	if (isClear_)
-	{
-		DrawString(400, 200, "CLEAR!", GetColor(0, 255, 0));
-		DrawString(350, 250, "Press ENTER", GetColor(255, 255, 255));
-	}
+	
 }
