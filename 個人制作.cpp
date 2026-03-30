@@ -5,6 +5,7 @@
 #include "PlayScene.h"
 #include "GameOverScene.h"
 #include "GameClear.h"
+#include "RuleScene.h"
 #include "Input 1.h"
 
 
@@ -34,10 +35,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         scene->Update();
         scene->Draw();
 
-        //タイトル->プレイ
+        //タイトル->ルール
         if (auto* title = dynamic_cast<TitleScene*>(scene))
         {
             if (title->IsStart())
+            {
+                delete scene;
+                scene = new RuleScene();
+            }
+        }
+        else if (auto* rule = dynamic_cast<RuleScene*>(scene))
+        {
+            if (rule->IsRule())
             {
                 delete scene;
                 scene = new PlayScene(1280);

@@ -149,6 +149,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RuleScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="個人制作.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Input 1.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="RuleScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="個人制作.cpp" />
   </ItemGroup>
